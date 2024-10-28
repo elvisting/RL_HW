@@ -114,7 +114,40 @@ def negative_grid(step_cost=-0.1):
     (2, 3): step_cost,
   })
   return g
+  
+def grid_5x5(step_cost=-0.1):
+  g = Grid(5, 5, (4, 0))
+  rewards = {(0, 4): 1, (1, 4): -1}
+  actions = {
+    (0, 0): ('D', 'R'),
+    (0, 1): ('L', 'R'),
+    (0, 2): ('L', 'R'),
+    (0, 3): ('L', 'D', 'R'),
+    (1, 0): ('U', 'D', 'R'),
+    (1, 1): ('U', 'D', 'L'),
+    (1, 3): ('U', 'D', 'R'),
+    (2, 0): ('U', 'D', 'R'),
+    (2, 1): ('U', 'L', 'R'),
+    (2, 2): ('L', 'R', 'D'),
+    (2, 3): ('L', 'R', 'U'),
+    (2, 4): ('L', 'U', 'D'),
+    (3, 0): ('U', 'D'),
+    (3, 2): ('U', 'D'),
+    (3, 4): ('U', 'D'),
+    (4, 0): ('U', 'R'),
+    (4, 1): ('L', 'R'),
+    (4, 2): ('L', 'R', 'U'),
+    (4, 3): ('L', 'R'),
+    (4, 4): ('L', 'U'),
+  }
+  g.set(rewards, actions)
 
+  # non-terminal states
+  visitable_states = actions.keys()
+  for s in visitable_states:
+    g.rewards[s] = step_cost
+
+  return g
 
 def print_values(V, g):
   for i in range(g.width):
